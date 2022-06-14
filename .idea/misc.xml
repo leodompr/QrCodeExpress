@@ -17,11 +17,12 @@
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/activity_main12.xml" value="0.88" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/activity_scan.xml" value="0.7303030303030303" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/dialog_qr_lid.xml" value="0.33" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/dialog_qr_lid.xml" value="0.67" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/dialog_shared.xml" value="0.67" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_code.xml" value="0.33" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_create_code.xml" value="0.25" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_create_code.xml" value="0.75" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_scan_qr_code.xml" value="0.5" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/item_qr_list.xml" value="0.5" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/item_qr_list.xml" value="0.67" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/menu/main_meni.xml" value="0.7666015625" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/menu/menu_main.xml" value="0.88" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/xml/file_paths.xml" value="0.1265625" />

@@ -3,7 +3,9 @@ package com.accao.qrcodeexpress.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.accao.qrcodeexpress.R
 import com.accao.qrcodeexpress.database.model.QrCode
@@ -35,6 +37,13 @@ class QrCodesAdapter (private val onItemClick : (QrCode) -> Unit) : RecyclerView
             val txtConteudoQrCode : TextView = itemView.findViewById(R.id.txtConteudoQrCode)
             txtConteudoQrCode.text = item.codeText
 
+            val origin_indicator : ImageView = itemView.findViewById(R.id.origin_indicator)
+            val origin_indicator2 : ImageView = itemView.findViewById(R.id.origin_indicato2)
+            if (item.origin == 1){
+                origin_indicator2.isVisible = true
+            } else {
+                origin_indicator.isVisible = true
+            }
         }
 
 

@@ -39,8 +39,26 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
+                android:layout_marginStart="-30dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="-30dp"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeColor="@color/light_gray"
+                app:layout_constraintEnd_toEndOf="@+id/imgQrCode"
+                app:layout_constraintStart_toStartOf="@+id/imgQrCode"
+                app:layout_constraintTop_toBottomOf="@+id/imgQrCode"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="30dp"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
@@ -49,30 +67,6 @@
                 app:boxStrokeColor="@color/light_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgQrCode">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputTitleQrCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Titulo"
-                    android:textColorHint="@color/light_gray_hint" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-                app:boxCornerRadiusTopStart="10dp"
-                app:boxStrokeColor="@color/light_gray"
-                app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayoutTitle"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -114,11 +108,18 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/ic_baseline_share_24" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+
                             android:fontFamily="@font/quicksand_bold"
-                            android:text="Abrir Link"
+                            android:text="Compartilhar"
                             android:textColor="@color/white" />
 
                     </LinearLayout>
@@ -141,79 +142,36 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearlayout" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="60dp"
+            <LinearLayout
+                android:id="@+id/deleteQr"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:gravity="center"
-                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view">
+                app:layout_constraintEnd_toEndOf="@+id/linearlayout"
+                app:layout_constraintStart_toStartOf="@+id/linearlayout"
+                app:layout_constraintTop_toTopOf="@+id/view" >
 
-                <LinearLayout
-                    android:id="@+id/btnCancelar"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_delete_forever_24"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:padding="10dp"
-                    android:text="@string/cancelar"
-                    android:textColor="@color/red_btn_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    />
-
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:src="@drawable/vector_divider"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_bold"
+                android:padding="10dp"
+                android:text="@string/deletar"
+                android:textColor="@color/red_btn_color"
+                android:textSize="16sp"
+                android:textStyle="bold"
+             />
 
 
-                <LinearLayout
-                    android:id="@+id/btnSalvar"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:gravity="center"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="parent">
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:padding="10dp"
-                    android:text="@string/salvar"
-                    android:textColor="@color/green_btn_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                     />
-
-                </LinearLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

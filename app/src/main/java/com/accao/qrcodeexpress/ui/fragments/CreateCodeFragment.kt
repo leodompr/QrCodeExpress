@@ -37,7 +37,7 @@ class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
     private var color = "preto"
     var bitmapShare: Bitmap? = null
 
-    private val savePath = Environment.getExternalStorageDirectory().path + "/QRCodeExpress/"
+
     private val qrCodeViewModel: QrCodesViewModel by viewModels {
         QrCodesViewModelFactory((requireActivity().application as QrCodeApplication).repository)
     }
@@ -61,7 +61,8 @@ class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
                 val qrCriado = QrCode(
                     binding.inputTitleQrCode.text.toString(),
                     binding.inputConteudoQrCode.text.toString(),
-                    color
+                    color,
+                    0
                 )
                 qrCodeViewModel.insert(qrCriado)
                 exit()
@@ -185,26 +186,6 @@ class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
 //    }
 
 
-    fun shared() {
-        val imageUri: Uri = getImageUri(requireContext(), bitmapShare!!)!!
 
-        val sendIntent = Intent()
-        sendIntent.action = Intent.ACTION_SEND
-        sendIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
-        sendIntent.type = "image/jpg"
-        startActivity(Intent.createChooser(sendIntent, imageUri.toString()))
-    }
-
-    fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(
-            inContext.contentResolver,
-            inImage,
-            "Title",
-            null
-        )
-        return Uri.parse(path)
-    }
 
 }

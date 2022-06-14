@@ -11,6 +11,7 @@ data class QrCode(
     val title : String,
     val codeText : String,
     val colorName: String,
+    val origin: Int
 ){
     @PrimaryKey(autoGenerate = true)
     var uid : Int = 0
