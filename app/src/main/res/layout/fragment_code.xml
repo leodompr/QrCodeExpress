@@ -37,21 +37,24 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/quicksand_medium"
-            android:text="Crie seus QrsCodes"
+            android:text="Crie ou leie seus Qr Codes"
             android:textColor="@color/white"
             android:textSize="16sp" />
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            android:hint="Pesquise..."
+            app:boxCornerRadiusTopStart="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusBottomEnd="10dp"
             app:boxBackgroundColor="@color/white"
             app:boxStrokeColor="@color/white"
             app:startIconDrawable="@drawable/ic_baseline_search_24"
@@ -70,7 +73,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-5dp"
+        android:layout_marginTop="-10dp"
         android:background="@drawable/arrendondar_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +88,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/quicksand_bold"
-            android:text="Seus Qrs Codes"
+            android:text="Seus Qr Codes"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -127,8 +130,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:clickable="true"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/lnNavToScan"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -136,6 +140,7 @@
                         android:id="@+id/navToCriar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:src="@drawable/ic_criar_qr_code" />
@@ -152,15 +157,28 @@
                 </LinearLayout>
 
 
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:src="@drawable/vector_divider"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
                 <LinearLayout
                     android:id="@+id/lnNavToScan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:gravity="center"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/lnNavToCriar"
+                    app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent">
 
 
@@ -169,6 +187,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:clickable="true"
                         android:background="@android:color/transparent"
                         android:src="@drawable/ic_scan_qr_code" />
 
@@ -187,17 +206,32 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/imgEmptyList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_group_26"
-            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/bottomnav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt500" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/txt500">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_group_26"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/textViewEmpty"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="-15dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Sua coleção de Qr Codes está vazia."
+                android:textColor="#9C9C9C" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

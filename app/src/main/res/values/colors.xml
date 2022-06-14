@@ -6,6 +6,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="azulbg">#4663AE</color>
+    <color name="rosabg">#C160BE</color>
     <color name="light_gray">#C9C9C9</color>
     <color name="light_gray_hint">#DDDDDD</color>
     <color name="red_card_color">#FF6A6A</color>

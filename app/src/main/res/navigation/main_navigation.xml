@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/codeFragment"
-        android:name="com.accao.qrcodeexpress.ui.fragments.CodeFragment"
+        android:name="com.uruklabs.qrcodeexpress.ui.fragments.CodeFragment"
         android:label="fragment_code"
         tools:layout="@layout/fragment_code" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/createCodeFragment"
-        android:name="com.accao.qrcodeexpress.ui.fragments.CreateCodeFragment"
+        android:name="com.uruklabs.qrcodeexpress.ui.fragments.CreateCodeFragment"
         android:label="fragment_create_code"
         tools:layout="@layout/fragment_create_code" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/scanQrCode"
-        android:name="com.accao.qrcodeexpress.ui.fragments.ScanQrCode"
+        android:name="com.uruklabs.qrcodeexpress.ui.fragments.ScanQrCode"
         android:label="ScanQrCode" >
         <action
             android:id="@+id/action_scanQrCode_to_codeFragment"

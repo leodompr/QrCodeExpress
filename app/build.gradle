@@ -8,7 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.accao.qrcodeexpress"
+        applicationId "com.uruklabs.qrcodeexpress"
         minSdk 26
         targetSdk 32
         versionCode 1
@@ -43,7 +43,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
@@ -55,12 +54,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
 
-
     //QR CODE
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     implementation "androidx.multidex:multidex:2.0.1"
-
+    implementation 'me.dm7.barcodescanner:zxing:1.9'
 
     // Room components
     implementation 'androidx.room:room-ktx:2.4.2'
@@ -77,14 +75,12 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.21'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
 
-// bundled:
+    // bundled:
     implementation "io.github.g00fy2.quickie:quickie-bundled:1.4.2"
-
 
     //Library to get URL Meta Data
     implementation 'org.jsoup:jsoup:1.13.1'
 
-    implementation 'me.dm7.barcodescanner:zxing:1.9'
 
 
    
