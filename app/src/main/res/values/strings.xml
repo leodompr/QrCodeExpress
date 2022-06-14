@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Qr Code Express</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="cancelar">Cancelar</string>
+    <string name="salvar">Salvar</string>
+    <string name="title_activity_main12">MainActivity12</string>
+    <!-- Strings used for fragments for navigation -->
+
+</resources>
