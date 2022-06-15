@@ -19,7 +19,7 @@
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/dialog_qr_lid.xml" value="0.67" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/dialog_shared.xml" value="0.67" />
-        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_code.xml" value="0.67" />
+        <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_code.xml" value="0.33" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_create_code.xml" value="0.75" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/fragment_scan_qr_code.xml" value="0.5" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/layout/item_qr_list.xml" value="0.67" />
