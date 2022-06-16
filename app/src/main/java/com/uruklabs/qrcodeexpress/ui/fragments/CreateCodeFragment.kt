@@ -1,40 +1,35 @@
-package com.accao.qrcodeexpress.ui.fragments
+package com.uruklabs.qrcodeexpress.ui.fragments
 
-import android.Manifest
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.os.StrictMode
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.accao.qrcodeexpress.*
-import com.accao.qrcodeexpress.application.QrCodeApplication
-import com.accao.qrcodeexpress.database.model.QrCode
-import com.accao.qrcodeexpress.databinding.FragmentCreateCodeBinding
-import com.accao.qrcodeexpress.ui.viewmodel.QrCodesViewModel
-import com.accao.qrcodeexpress.ui.viewmodel.QrCodesViewModelFactory
+
 import com.google.zxing.WriterException
-import java.io.ByteArrayOutputStream
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
+import com.uruklabs.qrcodeexpress.*
+import com.uruklabs.qrcodeexpress.application.QrCodeApplication
+import com.uruklabs.qrcodeexpress.database.model.QrCode
+import com.uruklabs.qrcodeexpress.databinding.FragmentCreateCodeBinding
+import com.uruklabs.qrcodeexpress.functions.QRGContents
+import com.uruklabs.qrcodeexpress.functions.QRGEncoder
+import com.uruklabs.qrcodeexpress.ui.viewmodel.QrCodesViewModel
+import com.uruklabs.qrcodeexpress.ui.viewmodel.QrCodesViewModelFactory
 
 
 class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
 
     private var _binding: FragmentCreateCodeBinding? = null
     private val binding get() = _binding!!
-    private var color = "preto"
+    private var color = "black"
     var bitmapShare: Bitmap? = null
 
 
@@ -73,8 +68,7 @@ class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
         }
 
         binding.btnCancelar.setOnClickListener {
-           exit()
-
+            exit()
         }
 
 
@@ -140,6 +134,9 @@ class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
             .isNotEmpty() && binding.inputTitleQrCode.text.toString().isNotEmpty()
     }
 
+
+
+
     fun generateQrCode(strQrCode: String, r: Int, g: Int, b: Int) {
         val qrgEncoder = QRGEncoder(strQrCode, null, QRGContents.Type.TEXT, 500)
         qrgEncoder.colorBlack = Color.rgb(r, g, b)
@@ -155,36 +152,9 @@ class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
 
 
     fun exit() {
-        startActivity(Intent(requireContext(), MainActivity::class.java))
+        findNavController().navigate(R.id.action_createCodeFragment_to_codeFragment)
+
     }
-
-//    fun sharedQrCode(bitmap: Bitmap) {
-//        if (ContextCompat.checkSelfPermission(
-//                requireContext(),
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE
-//            ) == PackageManager.PERMISSION_GRANTED
-//        ) {
-//            try {
-//                val save = QRGSaver().save(
-//                    savePath,
-//                    binding.inputConteudoQrCode.text.toString().trim { it <= ' ' },
-//                    bitmap,
-//                    QRGContents.ImageType.IMAGE_JPEG
-//                )
-//                val result = if (save) "Imagem Salva" else "Imagem não pode ser salva."
-//                Toast.makeText(activity, result, Toast.LENGTH_LONG).show()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        } else {
-//            ActivityCompat.requestPermissions(
-//                requireActivity(),
-//                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//                0
-//            )
-//        }
-//    }
-
 
 
 

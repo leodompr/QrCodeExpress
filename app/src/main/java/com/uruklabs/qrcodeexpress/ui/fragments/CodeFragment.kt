@@ -2,30 +2,32 @@ package com.uruklabs.qrcodeexpress.ui.fragments
 
 import android.Manifest
 import android.app.Dialog
-import android.content.Context
+
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import android.provider.MediaStore
+import android.provider.Settings.ACTION_WIFI_SETTINGS
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
+import android.content.Context
 import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,13 +35,14 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
 import com.uruklabs.qrcodeexpress.R
-import com.uruklabs.qrcodeexpress.databinding.FragmentCodeBinding
 import com.uruklabs.qrcodeexpress.application.QrCodeApplication
 import com.uruklabs.qrcodeexpress.database.model.QrCode
+import com.uruklabs.qrcodeexpress.databinding.FragmentCodeBinding
 import com.uruklabs.qrcodeexpress.functions.QRGContents
 import com.uruklabs.qrcodeexpress.functions.QRGEncoder
-import com.uruklabs.qrcodeexpress.ui.ScanActivity
 import com.uruklabs.qrcodeexpress.ui.adapter.QrCodesAdapter
 import com.uruklabs.qrcodeexpress.ui.viewmodel.QrCodesViewModel
 import com.uruklabs.qrcodeexpress.ui.viewmodel.QrCodesViewModelFactory
@@ -68,7 +71,6 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         _binding = FragmentCodeBinding.inflate(inflater, container, false)
         val builder = VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
-
         return binding.root
     }
 
@@ -76,10 +78,6 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
 
-        if (qrapplication!!.link != null) {
-            openDialogQrRead(qrapplication!!.link.toString())
-            qrapplication!!.link = null
-        }
 
         binding.navToCriar.setOnClickListener {
             findNavController().navigate(R.id.action_codeFragment_to_createCodeFragment)
@@ -91,11 +89,11 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
 
 
         binding.lnNavToScan.setOnClickListener {
-            startActivity(Intent(requireContext(), ScanActivity::class.java))
+            readQr()
         }
 
         binding.navToScan.setOnClickListener {
-            startActivity(Intent(requireContext(), ScanActivity::class.java))
+            readQr()
         }
 
 
@@ -119,6 +117,21 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         super.onResume()
         initRecyclerView()
 
+
+        if (qrapplication!!.link != "" && qrapplication!!.ssid == "") {
+            openDialogQrRead(qrapplication!!.link.toString(), qrapplication!!.title.toString())
+            qrapplication!!.link = ""
+            qrapplication!!.title = ""
+        }
+
+        if (qrapplication!!.ssid != ""){
+            openDialogQrReadWifi(qrapplication!!.link.toString(), qrapplication!!.ssid.toString(), qrapplication!!.passowrd.toString())
+            qrapplication!!.link = ""
+            qrapplication!!.ssid = ""
+            qrapplication!!.passowrd = ""
+        }
+
+
         activity?.onBackPressedDispatcher?.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -138,9 +151,9 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
                 listVerify = qrCodes.toMutableList()
                 adapterQrCode.setDataSet(qrCodes)
                 initRecyclerView()
-                println(listVerify)
             }
         })
+
     }
 
 
@@ -160,8 +173,8 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         val dialogQrLido = Dialog(requireContext())
         dialogQrLido.setContentView(R.layout.dialog_shared)
 
-
         val txtConteudo = dialogQrLido.findViewById<EditText>(R.id.inputConteudoQrCode)
+        val btnSharedQr = dialogQrLido.findViewById<CardView>(R.id.sharedQr)
         val btnOpenLink = dialogQrLido.findViewById<CardView>(R.id.openLink)
         val btnDelete = dialogQrLido.findViewById<LinearLayout>(R.id.deleteQr)
 
@@ -175,7 +188,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         txtConteudo.setText(qrCode.codeText)
         txtConteudo.isEnabled = false
 
-        btnOpenLink.setOnClickListener {
+        btnSharedQr.setOnClickListener {
 
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
@@ -197,6 +210,19 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
 
 
         }
+
+        btnOpenLink.setOnClickListener {
+            try {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(qrCode.codeText))
+                startActivity(browserIntent)
+            } catch (e: Exception) {
+                println(e.toString())
+                Toast.makeText(requireContext(), "Conteúdo não pode ser aberto.", Toast.LENGTH_LONG)
+                    .show()
+            }
+        }
+
+
 
         dialogQrLido.window!!
             .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -230,7 +256,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
     }
 
 
-    fun openDialogQrRead(strQrCode: String) {
+    fun openDialogQrRead(strQrCode: String, title : String) {
         val dialogQrLido = Dialog(requireContext())
         dialogQrLido.setContentView(R.layout.dialog_qr_lid)
 
@@ -239,10 +265,15 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         val btnOpenLink = dialogQrLido.findViewById<CardView>(R.id.openLink)
         val btnCancelar = dialogQrLido.findViewById<LinearLayout>(R.id.btnCancelar)
         val btnSalvar = dialogQrLido.findViewById<LinearLayout>(R.id.btnSalvar)
+        val txtBtnOpenLink = dialogQrLido.findViewById<TextView>(R.id.textBtnOpenLink)
         val imgQr = dialogQrLido.findViewById<ImageView>(R.id.imgQrCode)
         imgQr.setImageBitmap(generateQrCode(strQrCode, "black"))
         txtConteudo.setText(strQrCode)
-        txtConteudo.isEnabled = false
+        txtTitulo.setText(title)
+        if (qrapplication!!.type == "txt"){
+            txtBtnOpenLink.text = "Copiar Texto"
+        }
+
 
         btnCancelar.setOnClickListener {
             dialogQrLido.dismiss()
@@ -260,7 +291,15 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         }
 
         btnOpenLink.setOnClickListener {
+            if (qrapplication!!.type == "txt"){
+                val clipboardManager = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("text", strQrCode)
+                clipboardManager.setPrimaryClip(clipData)
 
+                Toast.makeText(requireContext(), "Texto copiado!", Toast.LENGTH_LONG).show()
+
+
+            } else {
             try {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(strQrCode))
                 startActivity(browserIntent)
@@ -269,12 +308,45 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
                     .show()
             }
         }
+        }
+
 
         dialogQrLido.window!!
             .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialogQrLido.setCancelable(false)
         dialogQrLido.show()
     }
+
+
+
+    fun openDialogQrReadWifi(strQrCode : String, ssid: String, passowrd: String) {
+        val dialogQrLido = Dialog(requireContext())
+        dialogQrLido.setContentView(R.layout.dialog_qr_wifi)
+
+        val txtSSID = dialogQrLido.findViewById<EditText>(R.id.inputSSIDQrCode)
+        val txtPassowrd = dialogQrLido.findViewById<EditText>(R.id.inputSenharCode)
+        val btnOpenLink = dialogQrLido.findViewById<CardView>(R.id.openLink)
+        val btnCancelar = dialogQrLido.findViewById<LinearLayout>(R.id.btnCancelar)
+        val imgQr = dialogQrLido.findViewById<ImageView>(R.id.imgQrCode)
+        imgQr.setImageBitmap(generateQrCode(strQrCode, "black"))
+        txtPassowrd.setText(passowrd)
+        txtSSID.setText(ssid)
+
+        btnCancelar.setOnClickListener {
+            dialogQrLido.dismiss()
+        }
+
+        btnOpenLink.setOnClickListener {
+            startActivity(Intent(ACTION_WIFI_SETTINGS))
+        }
+
+        dialogQrLido.window!!
+            .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogQrLido.setCancelable(false)
+        dialogQrLido.show()
+    }
+
+
 
     fun initRecyclerView() {
         binding.rvQrCodes.apply {
@@ -318,4 +390,51 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
     }
 
 
+
+
+
+
+
+
+    fun readQr() {
+        val gmsBarcodeScanner = GmsBarcodeScanning.getClient(requireContext())
+        gmsBarcodeScanner
+            .startScan()
+            .addOnSuccessListener { barcode: Barcode ->
+                when (barcode.valueType) {
+                    Barcode.TYPE_WIFI -> {
+                        val ssid = barcode.wifi!!.ssid
+                        val password = barcode.wifi!!.password
+                        qrapplication?.ssid = ssid
+                        qrapplication?.passowrd = password
+                        qrapplication?.link = barcode.rawValue
+
+                    }
+                    Barcode.TYPE_URL -> {
+                        val title = barcode.url!!.title
+                        val url = barcode.url!!.url
+                        qrapplication?.link = url
+                        qrapplication?.title = title
+
+                    }
+                   Barcode.TYPE_TEXT, Barcode.TYPE_EMAIL, Barcode.TYPE_PHONE -> {
+                       val url = barcode.rawValue
+                       qrapplication?.link = url
+                       qrapplication?.type = "txt"
+                   }
+
+                }
+
+            }
+            .addOnFailureListener { e: Exception ->
+
+            }
+    }
+
+
+
+    
+
 }
+
+

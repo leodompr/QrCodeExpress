@@ -7,10 +7,14 @@
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name="com.uruklabs.qrcodeexpress.application.QrCodeApplication"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -37,6 +41,9 @@
             android:name="com.uruklabs.qrcodeexpress.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
+
+
+
     </application>
 
 </manifest>
