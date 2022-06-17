@@ -57,7 +57,8 @@ class CreateCodeFragment : Fragment(R.layout.fragment_create_code) {
                     binding.inputTitleQrCode.text.toString(),
                     binding.inputConteudoQrCode.text.toString(),
                     color,
-                    0
+                    0,
+                    "txt"
                 )
                 qrCodeViewModel.insert(qrCriado)
                 exit()

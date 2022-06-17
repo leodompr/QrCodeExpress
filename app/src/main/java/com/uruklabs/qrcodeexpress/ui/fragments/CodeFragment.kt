@@ -119,7 +119,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
 
 
         if (qrapplication!!.link != "" && qrapplication!!.ssid == "") {
-            openDialogQrRead(qrapplication!!.link.toString(), qrapplication!!.title.toString())
+            openDialogQrRead(qrapplication!!.link.toString(), qrapplication!!.title.toString(), qrapplication!!.type.toString())
             qrapplication!!.link = ""
             qrapplication!!.title = ""
         }
@@ -129,6 +129,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
             qrapplication!!.link = ""
             qrapplication!!.ssid = ""
             qrapplication!!.passowrd = ""
+
         }
 
 
@@ -177,6 +178,11 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         val btnSharedQr = dialogQrLido.findViewById<CardView>(R.id.sharedQr)
         val btnOpenLink = dialogQrLido.findViewById<CardView>(R.id.openLink)
         val btnDelete = dialogQrLido.findViewById<LinearLayout>(R.id.deleteQr)
+        val txt_btn_open_link = dialogQrLido.findViewById<TextView>(R.id.txt_btn_open_link)
+
+        if (qrCode.type == "txt"){
+            txt_btn_open_link.text = "Copiar Texto"
+        }
 
         btnDelete.setOnClickListener {
             qrCodeViewModel.delete(qrCode)
@@ -212,16 +218,21 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         }
 
         btnOpenLink.setOnClickListener {
-            try {
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(qrCode.codeText))
-                startActivity(browserIntent)
-            } catch (e: Exception) {
-                println(e.toString())
-                Toast.makeText(requireContext(), "Conteúdo não pode ser aberto.", Toast.LENGTH_LONG)
-                    .show()
+            if (qrapplication!!.type == "txt"){
+                val clipboardManager = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("text", qrCode.codeText)
+                clipboardManager.setPrimaryClip(clipData)
+                Toast.makeText(requireContext(), "Texto copiado!", Toast.LENGTH_LONG).show()
+
+            } else {
+                try {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(qrCode.codeText))
+                    startActivity(browserIntent)
+                } catch (e: Exception) {
+                  
+                }
             }
         }
-
 
 
         dialogQrLido.window!!
@@ -256,7 +267,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
     }
 
 
-    fun openDialogQrRead(strQrCode: String, title : String) {
+    fun openDialogQrRead(strQrCode: String, title : String, type : String) {
         val dialogQrLido = Dialog(requireContext())
         dialogQrLido.setContentView(R.layout.dialog_qr_lid)
 
@@ -270,6 +281,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
         imgQr.setImageBitmap(generateQrCode(strQrCode, "black"))
         txtConteudo.setText(strQrCode)
         txtTitulo.setText(title)
+
         if (qrapplication!!.type == "txt"){
             txtBtnOpenLink.text = "Copiar Texto"
         }
@@ -284,7 +296,8 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
                 txtTitulo.text.toString(),
                 txtConteudo.text.toString(),
                 "black",
-                1
+                1,
+                type
             )
             qrCodeViewModel.insert(qrCriado)
             dialogQrLido.dismiss()
@@ -295,7 +308,6 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
                 val clipboardManager = activity!!.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clipData = ClipData.newPlainText("text", strQrCode)
                 clipboardManager.setPrimaryClip(clipData)
-
                 Toast.makeText(requireContext(), "Texto copiado!", Toast.LENGTH_LONG).show()
 
 
@@ -304,8 +316,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(strQrCode))
                 startActivity(browserIntent)
             } catch (e: Exception) {
-                Toast.makeText(requireContext(), "Conteúdo não pode ser aberto.", Toast.LENGTH_LONG)
-                    .show()
+                
             }
         }
         }
@@ -415,6 +426,7 @@ class CodeFragment : Fragment(R.layout.fragment_code) {
                         val url = barcode.url!!.url
                         qrapplication?.link = url
                         qrapplication?.title = title
+                        qrapplication?.type = "link"
 
                     }
                    Barcode.TYPE_TEXT, Barcode.TYPE_EMAIL, Barcode.TYPE_PHONE -> {

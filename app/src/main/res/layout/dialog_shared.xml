@@ -114,9 +114,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingStart="5dp"
                 android:paddingTop="5dp"
-                android:paddingEnd="5dp"
                 android:paddingBottom="5dp"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout"
@@ -136,6 +134,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/txt_btn_open_link"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand_bold"

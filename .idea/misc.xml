@@ -26,9 +26,13 @@
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/menu/main_meni.xml" value="0.7666015625" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/menu/menu_main.xml" value="0.88" />
         <entry key="..\:/Users/Leonardo/Desktop/AndroidStudioProjects/QrCodeExpress/app/src/main/res/xml/file_paths.xml" value="0.1265625" />
+        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.3675" />
+        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
         <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/dialog_qr_lid.xml" value="0.2866847826086957" />
-        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/dialog_shared.xml" value="0.2866847826086957" />
-        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/fragment_code.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/dialog_qr_wifi.xml" value="0.21195652173913043" />
+        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/dialog_shared.xml" value="0.67" />
+        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/fragment_code.xml" value="0.4642857142857143" />
+        <entry key="..\:/Users/Leonardo/Documents/GitHub/QrCodeExpress/app/src/main/res/layout/fragment_create_code.xml" value="0.6278260869565218" />
       </map>
     </option>
   </component>

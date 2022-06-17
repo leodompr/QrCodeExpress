@@ -14,6 +14,12 @@
     <string name="error_camera_permission_not_granted" translatable="false">Camera permission is not granted.</string>
     <string name="error_app_name_unavailable" translatable="false">App name is not set.</string>
     <string name="error_default_message" translatable="false">Failed to scan code: %1$s</string>
+    <string name="sub_title_home">Crie ou leia seus Qr Codes</string>
+    <string name="title_home">Olá!</string>
+    <string name="title_rV_qrs">Seus Qr Codes</string>
+    <string name="crie_seus_qr_codes_description">Crie seus Qr Codes</string>
+    <string name="txt_btn_criar">Criar</string>
+    <string name="leaia_description">Leia Qr Codes</string>
 
 
 </resources>
