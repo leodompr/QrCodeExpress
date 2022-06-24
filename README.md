@@ -4,7 +4,7 @@
 
 
 
-QrCodeExpress desenvolvido em Kotlin
+QrCodeExpress
 </h2>
 
 <h2 align = "center">
